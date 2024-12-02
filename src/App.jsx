@@ -1,47 +1,49 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Activity, Users, Code, Star } from 'lucide-react';
+import { DollarSign, TrendingUp, Users, ShoppingCart } from 'lucide-react';
 
 const Dashboard = () => {
   const data = [
-    { name: 'Ene', projects: 4, commits: 45 },
-    { name: 'Feb', projects: 3, commits: 52 },
-    { name: 'Mar', projects: 5, commits: 78 },
-    { name: 'Abr', projects: 6, commits: 91 },
+    { name: 'Ene', ventas: 45000, clientes: 120 },
+    { name: 'Feb', ventas: 52000, clientes: 145 },
+    { name: 'Mar', ventas: 78000, clientes: 180 },
+    { name: 'Abr', ventas: 91000, clientes: 210 },
+    { name: 'May', ventas: 85000, clientes: 195 },
+    { name: 'Jun', ventas: 98000, clientes: 230 },
   ];
 
   const stats = [
     {
-      title: "Proyectos Totales",
-      value: "18",
-      icon: <Code className="h-6 w-6 text-blue-600" />,
-      change: "+3 este mes"
+      title: "Ingresos Totales",
+      value: "449,000€",
+      icon: <DollarSign className="h-6 w-6 text-green-600" />,
+      change: "+15% vs mes anterior"
     },
     {
-      title: "Commits",
-      value: "266",
-      icon: <Activity className="h-6 w-6 text-green-600" />,
-      change: "+91 este mes"
+      title: "Conversión",
+      value: "3.2%",
+      icon: <TrendingUp className="h-6 w-6 text-blue-600" />,
+      change: "+0.4% vs mes anterior"
     },
     {
-      title: "Estrellas GitHub",
-      value: "24",
-      icon: <Star className="h-6 w-6 text-yellow-600" />,
-      change: "+5 este mes"
-    },
-    {
-      title: "Seguidores",
-      value: "156",
+      title: "Clientes Nuevos",
+      value: "230",
       icon: <Users className="h-6 w-6 text-purple-600" />,
-      change: "+12 este mes"
+      change: "+18% vs mes anterior"
+    },
+    {
+      title: "Ticket Medio",
+      value: "426€",
+      icon: <ShoppingCart className="h-6 w-6 text-orange-600" />,
+      change: "+5% vs mes anterior"
     }
   ];
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Portfolio Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard de Ventas y Marketing</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
@@ -62,7 +64,7 @@ const Dashboard = () => {
 
         <Card className="bg-white dark:bg-gray-800">
           <CardHeader>
-            <CardTitle className="text-gray-900 dark:text-white">Actividad de Desarrollo</CardTitle>
+            <CardTitle className="text-gray-900 dark:text-white">Evolución de Ventas y Clientes</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-80 w-full">
@@ -70,10 +72,11 @@ const Dashboard = () => {
                 <BarChart data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
-                  <YAxis />
+                  <YAxis yAxisId="left" />
+                  <YAxis yAxisId="right" orientation="right" />
                   <Tooltip />
-                  <Bar dataKey="projects" fill="#3b82f6" name="Proyectos" />
-                  <Bar dataKey="commits" fill="#10b981" name="Commits" />
+                  <Bar yAxisId="left" dataKey="ventas" fill="#10b981" name="Ventas (€)" />
+                  <Bar yAxisId="right" dataKey="clientes" fill="#3b82f6" name="Nuevos Clientes" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
